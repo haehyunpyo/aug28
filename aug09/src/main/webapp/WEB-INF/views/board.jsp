@@ -13,41 +13,120 @@
 		.title{
 			text-align: left;
 		}
+		.detail-datail{
+			width: 100%;
+			height: auto;
+		}
+		.detail-name, .detail-date-read{
+			width: 100%;
+			height: 30px;
+			border-bottom: 1px solid #c0c0c0;
+		}
+		.detail-date-read{
+			background-color: silver;
+		}
+		.detail-date{
+			padding-left: 10px;
+			float: left;
+		}
+		.detail-read{
+			padding-right: 10px;
+			float: right;
+		}
+		.detail-content{
+			width: 100%;
+			height: auto;
+		}
+		
 	</style>
 	<script type="text/javascript">
 		$(function(){
-			$(".detail").click(function(){
-				let first = $(this).children("td").eq(3);
-				alert(first.html());
+
+			$(document).on("click", ".del", function(){
+				let bno = $(".bno").val();
+				let uuid = $(".uuid").val();
+				// 가상 form만들어서 전송하기
+				let form = $('<form></form>');
+				form.attr("action", "./delete");
+				form.attr("method", "post");
+
+				form.append($("<input>", {type:'hidden', name:'bno', value:bno}));
+				form.append($("<input>", {type:'hidden', name:'uuid', value:uuid}));
+				
+				form.appendTo("body");
+				
+				form.submit();
 			});
+			
+			$(document).on("click", ".edit", function(){
+				let bno = $(".bno").val();
+				let uuid = $(".uuid").val();
+				// 가상 form만들어서 전송하기
+				let form = $('<form></form>');
+				form.attr("action", "./edit");
+				form.attr("method", "post");
+
+				form.append($("<input>", {type:'hidden', name:'bno', value:bno}));
+				form.append($("<input>", {type:'hidden', name:'uuid', value:uuid}));
+				
+				form.appendTo("body");
+				
+				form.submit();
+			});
+			
+			
+			
+			$(document).on("click", ".edit", function(){
+				let bno = $(".bno").val();
+				let uuid = $(".uuid").val();
+				alert(bno + " / " + uuid);
+			});
+			
+			
+			$(".detail").click(function(){
+				let bno = $(this).children("td").eq(0).html();
+				let name = $(this).children("td").eq(2).html();
+				let date = $(this).children("td").eq(3).html();
+				let read = Number($(this).children("td").eq(4).html()) + 1;
+				
+				let comment = $(this).children("td").eq(1).children(".bg-secondary").text().length;
+				let title = $(this).children("td").eq(1).text();
+				if(comment > 0){
+					title = title.slice(0, -comment);
+				}
+				
+				//alert(first.text());
+				//$(".modal-bno").text(bno + "/" + name + "/" + read);
+				
+				$.ajax({
+	                 url:"./detail",
+	                 type : "post",
+	                 data: {bno: bno},
+	                 dataType : "json",
+	                 success: function(data){
+	                    //   alert(data.content);
+	              $(".modal-title").text(title);
+	              name = name + '<img class="edit" src="./img/edit.png"> <img class="del" src="./img/delete.png">';	              name += '<input type="hidden" class="bno" value="'+bno+'">';
+	              name += '<input type="hidden" class="uuid" value="'+data.uuid+'">';
+	              $(".detail-name").html(name);
+	              $(".detail-date").text(date);
+	              $(".detail-read").text(read);
+	              $(".detail-content").html(data.content);
+	              $("#exampleModal").modal("show");
+	                 },
+	                 error : function(error){
+	                    alert("에러가 발생했습니다"+ error);
+	                 }
+	              
+	              });
+			});
+			//$(".modalOpen").click(function(){$("#exampleModal").modal("show");});
 		});
 	</script>
 </head>
-
 <body id="page-top">
-	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-		<div class="container">
-			<a class="navbar-brand" href="./"><img
-				src="assets/img/navbar-logo.svg" alt="..." /></a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				Menu <i class="fas fa-bars ms-1"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="./board">게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-					<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	
+<%@ include file="menu.jsp" %>
+
 	<!-- Masthead-->
 	<header class="masthead">
 		<div class="container">
@@ -62,7 +141,7 @@
 						<th class="col-2">읽음</th>
 					</tr>
 				</thead>
-				<tbody><c:forEach items="${list}" begin="1" end="10" var="row">
+				<tbody><c:forEach items="${list}" var="row">
 					<tr class="row detail">
 						<td class="col-2">${row.bno }</td>
 						<td class="col-4 title">${row.btitle }<c:if test="${row.commentcount ne 0 }">&nbsp;<span class="badge bg-secondary">${row.commentcount}</span></c:if></td>
@@ -73,31 +152,36 @@
 				</c:forEach>
 				</tbody>
 			</table>
-			<button type="button" class="btn btn-secondary">글쓰기</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='./write'">글쓰기</button>
 			<button type="button" class="btn btn-warning" id="modal1" data-bs-toggle="modal" data-bs-target="#exampleModal">모달</button>
+			<button type="button" class="modalOpen btn btn-light">모달열기</button>
 		</div>
 	</header>
-	
+
+
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+				<div class="modal-body">
+					<div class="detail-detail">
+						<div class="detail-name">이름</div>
+						<div class="detail-date-read">
+							<div class="detail-date">날짜</div>
+							<div class="detail-read">읽음</div>
+						</div>
+						<div class="detail-content">본문내용</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 
 	<!-- Bootstrap core JS-->
