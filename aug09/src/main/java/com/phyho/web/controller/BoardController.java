@@ -3,6 +3,7 @@ package com.phyho.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class BoardController {
 	   // JSONObject e = new JSONObject();
 	   json.put("content", dto.getBcontent());
 	   json.put("uuid", dto.getUuid());
+	   json.put("ip", dto.getBip());
 	   
 	   // json.put("result", e);
 	   System.out.println(json.toString());
@@ -57,17 +59,18 @@ public class BoardController {
 	}	
 		
 	@PostMapping("/write")
-	public String write(HttpServletRequest request) {
+	public String write(HttpServletRequest request, HttpSession session) {
+		// 로그인한 사용자만 들어올 수 있습니다.
 		//System.out.println(request.getParameter("title"));
 		//System.out.println(request.getParameter("content"));
 		
 		BoardDTO dto = new BoardDTO();
 		dto.setBtitle(request.getParameter("title"));
 		dto.setBcontent(request.getParameter("content"));
-		dto.setM_id("PYOPYO");
+		dto.setM_id(String.valueOf(session.getAttribute("mid")));
 		
 		int result = boardService.write(dto);
-		//System.out.println(result);
+		System.out.println(result);
 		
 		return "redirect:/board";
 	}

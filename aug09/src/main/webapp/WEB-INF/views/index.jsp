@@ -27,7 +27,18 @@
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">Welcome To Our Studio!</div>
+                <div class="masthead-subheading">
+                
+	                <c:if test="${sessionScope.mname eq null }">
+	                	로그인 해주세요.
+	                </c:if>
+	                
+	                <c:if test="${sessionScope.mname ne null }">
+	                	${sessionScope.mname }님 반갑습니다.
+	                </c:if>
+                
+                </div>
+                
                 <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
             </div>

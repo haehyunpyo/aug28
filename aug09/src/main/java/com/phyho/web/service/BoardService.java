@@ -38,9 +38,5 @@ public class BoardService {
 		return boardDAO.write(dto);
 		
 	}
-
-	public String detail(String bno) {
-		return null;
-	}
 	
 }

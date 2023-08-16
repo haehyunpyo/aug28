@@ -91,6 +91,7 @@
 				
 				let comment = $(this).children("td").eq(1).children(".bg-secondary").text().length;
 				let title = $(this).children("td").eq(1).text();
+				let ip = $(this).children("td").eq(5).text();
 				if(comment > 0){
 					title = title.slice(0, -comment);
 				}
@@ -106,18 +107,18 @@
 	                 success: function(data){
 	                    //   alert(data.content);
 	              $(".modal-title").text(title);
-	              name = name + '<img class="edit" src="./img/edit.png"> <img class="del" src="./img/delete.png">';	              name += '<input type="hidden" class="bno" value="'+bno+'">';
+	              name = name + '<img class="edit" src="./img/edit.png"> <img class="del" src="./img/delete.png">';	name += '<input type="hidden" class="bno" value="'+bno+'">';
 	              name += '<input type="hidden" class="uuid" value="'+data.uuid+'">';
 	              $(".detail-name").html(name);
 	              $(".detail-date").text(date);
 	              $(".detail-read").text(read);
 	              $(".detail-content").html(data.content);
+	              $(".detail-ip").html(ip);
 	              $("#exampleModal").modal("show");
 	                 },
 	                 error : function(error){
 	                    alert("에러가 발생했습니다"+ error);
 	                 }
-	              
 	              });
 			});
 			//$(".modalOpen").click(function(){$("#exampleModal").modal("show");});
@@ -134,20 +135,22 @@
 			<table class="table table-dark table-hover table-striped">
 				<thead>
 					<tr class="row">
-						<th class="col-2">번호</th>
+						<th class="col-1">번호</th>
 						<th class="col-4">제목</th>
-						<th class="col-2">글쓴이</th>
+						<th class="col-1">글쓴이</th>
 						<th class="col-2">날짜</th>
-						<th class="col-2">읽음</th>
+						<th class="col-1">읽음</th>
+						<th class="col-3">ip</th>
 					</tr>
 				</thead>
 				<tbody><c:forEach items="${list}" var="row">
 					<tr class="row detail">
-						<td class="col-2">${row.bno }</td>
+						<td class="col-1">${row.bno }</td>
 						<td class="col-4 title">${row.btitle }<c:if test="${row.commentcount ne 0 }">&nbsp;<span class="badge bg-secondary">${row.commentcount}</span></c:if></td>
-						<td class="col-2">${row.m_name }</td>
+						<td class="col-1">${row.m_name }</td>
 						<td class="col-2">${row.bdate }</td>
-						<td class="col-2">${row.blike }</td>
+						<td class="col-1">${row.blike }</td>
+						<td class="col-3">${row.bip }</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -177,6 +180,7 @@
 							<div class="detail-read">읽음</div>
 						</div>
 						<div class="detail-content">본문내용</div>
+						<div class="detail-ip">아이피</div>
 					</div>
 				</div>
 			</div>
