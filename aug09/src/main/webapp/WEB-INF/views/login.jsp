@@ -68,6 +68,11 @@
                <div class="rounded-3 login-form">
                		<h2>LOGIN</h2>
                		<img alt="login" src="./img/login.png" width="250px;">
+               	<c:if test="${param.error ne null }">
+               	<div class="mb-3 row">
+					<h2 style="color:red;">로그인 하세요</h2>
+               	</div>	
+               	</c:if>	
 				<div class="mb-3 row">
 					<label for="staticEmail" class="col-sm-3 col-form-label">I D</label>
 					<div class="col-sm-8">
@@ -91,9 +96,14 @@
             </div>
         </header>
         
+        <!-- 에러가 들어오면 동작하게 하겠습니다 -->
+        <c:if test="${param.error ne null }">
+        	<script>
+        		alert("로그인 해야 사용할 수 있는 메뉴입니다.");
+        	</script>
+        </c:if>
      
         
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
