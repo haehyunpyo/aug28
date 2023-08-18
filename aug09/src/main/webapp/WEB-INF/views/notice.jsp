@@ -22,8 +22,7 @@
  <!-- Masthead-->
         <header class="masthead">
             <div class="container">
-               
-               
+               <div></div>
             </div>
         </header>
 

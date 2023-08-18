@@ -69,7 +69,7 @@ public class BoardController {
 		dto.setBcontent(request.getParameter("content"));
 		dto.setM_id(String.valueOf(session.getAttribute("mid")));
 		
-		int result = boardService.write(dto);
+		int result = boardService.write(sdto);
 		System.out.println(result);
 		
 		return "redirect:/board";

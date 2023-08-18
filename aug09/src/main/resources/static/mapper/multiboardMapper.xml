@@ -20,7 +20,7 @@
 	</insert>
 	
 	<select id="mbdetail" parameterType="Integer" resultType="Map">
-		SELECT mb_no, mb_title, mb_content, mb_date, mb_read, mb_board, mb_name
+		SELECT mb_no, mb_title, mb_content, mb_date, mb_read, mb_board, m_name
 		FROM multiview 
 		WHERE mb_no=#{mbno} 
 	</select>

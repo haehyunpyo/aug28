@@ -69,7 +69,7 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${list }" var="list">
-								<tr class="row detail" onclick="location.href='./mbdetailmbno='${list.mb_no} ">
+								<tr class="row detail" onclick="location.href='./mbdetail?mbno=${list.mb_no}' ">
 									<td class="col-1">${list.mb_no}</td>
 									<td class="col-5 title">${list.mb_title}<c:if test="${row.commentcount ne 0 }">&nbsp;<span class="badge bg-secondary">${row.commentcount}</span></c:if></td>
 									<td class="col-2">${list.m_name}</td>
