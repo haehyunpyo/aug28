@@ -73,7 +73,7 @@ public class Util {
 		return ip;
 	}
 	
-	//숫자인지 확인하기
+	//숫자인지 확인하기000000000
 	public boolean isNum(Object obj) {
 		try {
 			Integer.parseInt(String.valueOf(obj));
