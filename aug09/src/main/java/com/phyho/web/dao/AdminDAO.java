@@ -10,4 +10,10 @@ public interface AdminDAO {
 
 	Map<String, Object> adminLogin(Map<String, Object> map);
 
+	List<Map<String, Object>> list();
+
+	void noticeWrite(Map<String, Object> map);
+
 }
+
+

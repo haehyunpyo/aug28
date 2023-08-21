@@ -46,7 +46,7 @@ public class BoardController {
 	   json.put("ip", dto.getBip());
 	   
 	   // json.put("result", e);
-	   System.out.println(json.toString());
+	   //System.out.println(json.toString());
 	   // {"uuid":"c2fd4f8b-b041-4699-8f4a-db0047cfa9a4","content":"<p>잘 들어간다.<\/p>"}
 	   
 	   return json.toString();
@@ -69,8 +69,8 @@ public class BoardController {
 		dto.setBcontent(request.getParameter("content"));
 		dto.setM_id(String.valueOf(session.getAttribute("mid")));
 		
-		int result = boardService.write(sdto);
-		System.out.println(result);
+		int result = boardService.write(dto);
+		//System.out.println(result);
 		
 		return "redirect:/board";
 	}
