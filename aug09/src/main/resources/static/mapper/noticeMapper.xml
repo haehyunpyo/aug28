@@ -3,7 +3,23 @@
 <mapper namespace="com.phyho.web.dao.NoticeDAO">
 
 	<select id="list" resultType="Map">
-		SELECT * FROM notice
+		SELECT * FROM notice WHERE ndel = 1 ORDER BY nno DESC LIMIT 0, 10
+	</select>
+
+	<select id="detail" parameterType="Integer" resultType="Map">
+		SELECT nno, ntitle, m_no, ncontent, ndate, norifile, nrealfile 
+		FROM notice 
+		WHERE nno=#{nno }
+	</select>
+	
+	<select id="nWriter" parameterType="Integer" resultType="String">
+		SELECT m_name FROM members WHERE m_no= (SELECT m_no FROM notice WHERE nno=#{nno })
+	</select>
+
+	<select id="getOriFileName" parameterType="String" resultType="String">
+		SELECT norifile
+		FROM notice 
+		WHERE nrealfile=#{fileName }
 	</select>
 	
 </mapper>

@@ -9,6 +9,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface NoticeDAO {
 
 	List<Map<String, Object>> list();
-	
+
+	Map<String, Object> detail(int nno);
+
+	String nWriter(int nno);
+
+	String getOriFileName(String filename);
 	
 }

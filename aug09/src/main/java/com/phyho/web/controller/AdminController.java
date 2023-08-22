@@ -1,8 +1,14 @@
 package com.phyho.web.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,32 +95,74 @@ public class AdminController {
 		// {title=제목쓰고, content=글을쓰고 글쓰기버튼 누르면, upFile=}
 		// System.out.println(map);
 		
+		// 2023-08-22 요구사항확인
+		
 		if(!upfile.isEmpty()) {
 			// 저장할 경로면 뽑기  request 뽑기
 			 HttpServletRequest request = 
 				         ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 			String path = request.getServletContext().getRealPath("/upload");
-			System.out.println("실제 경로 : " + path);
+			//System.out.println("실제 경로 : " + path);
 			
 			
 			// upfile 정보보기
-			System.out.println(upfile.getOriginalFilename());
-			System.out.println(upfile.getSize());
-			System.out.println(upfile.getContentType());
+			//System.out.println(upfile.getOriginalFilename());
+			//System.out.println(upfile.getSize());
+			//System.out.println(upfile.getContentType());
 			// 진짜로 파일 업로드 하기 경로 + 저장할 파일명
-			File newFileName = new File(upfile.getOriginalFilename());
-		}
+			// String타입의 경로를 file형태로 바꿔주겠습니다.
+			// File filePath = new File(path);
+			// 중복이 발생할 수 있기때문에 ____ 파일명 + 날짜 + ID + .파일확장자
+			// 									UUID + 파일명 + .확장자
+			// 									UUID + 파일명 + ID + .확장자
+			
+			UUID uuid = UUID.randomUUID();
+//			String realFileName = uuid.toString() + upfile.getOriginalFilename();
+			
+			// 날짜 뽑기 SimpleDateFormat
+//			Date date = new Date();
+//			SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmss");
+//			String dateTIme = sdf.format(date);
+//			realFileName = dateTIme.toString() + upfile.getOriginalFilename();
+			
+			// 다른 날짜 뽑기 형식
+			LocalDateTime ldt = LocalDateTime.now();
+			String format = ldt.format(DateTimeFormatter.ofPattern("YYYYMMddHHmmss"));
+			// 날짜 + UUID + 실제 파일명으로 사용하겠습니다.
+			String realFileName = format + uuid.toString() + upfile.getOriginalFilename();
+			
+			File newFileName = new File(path, realFileName);
+			//이제 파일 올립니다.
+			try {
+//				upfile.transferTo(newFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//System.out.println("저장끝.");
+			//FileCopyUtils를 사용하기 위해서는 오리지널 파일을 byte[]로 만들어야 합니다.
+			try {
+				FileCopyUtils.copy(upfile.getBytes(), newFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			map.put("upFile", upfile.getOriginalFilename());
+			map.put("realFile", realFileName);
 		
+		}
 		
 		map.put("mno", 1);
 		adminService.noticeWrite(map);
 		return "redirect:/admin/notice";
 	}
 	
+	@GetMapping("/mail")
+	public String mail() {
+		return "admin/mail";
+	}
+	
 	
 }
-
-
 
 
 
