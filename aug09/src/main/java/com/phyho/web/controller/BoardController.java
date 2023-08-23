@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.phyho.web.dto.BoardDTO;
 import com.phyho.web.service.BoardService;
 
@@ -38,7 +40,8 @@ public class BoardController {
 	   //System.out.println(bno);
 	   BoardDTO dto= boardService.detail(bno);
 	  
-	   JSONObject json = new JSONObject();
+	   //JSONObject json = new JSONObject();
+	   ObjectNode json = JsonNodeFactory.instance.objectNode();
 	   
 	   // JSONObject e = new JSONObject();
 	   json.put("content", dto.getBcontent());
