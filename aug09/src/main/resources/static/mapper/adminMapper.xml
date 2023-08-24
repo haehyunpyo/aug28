@@ -30,5 +30,10 @@
 		WHERE nno=#{nno}
 	</update>
 	
+	<select id="setupboardList" resultType="Map">
+		SELECT * FROM setupboard ORDER BY b_no ASC
+	</select>
+	
+	
 	
 </mapper>

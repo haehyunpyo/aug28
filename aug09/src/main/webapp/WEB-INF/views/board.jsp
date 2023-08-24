@@ -122,7 +122,35 @@
 	              });
 			});
 			//$(".modalOpen").click(function(){$("#exampleModal").modal("show");});
-		});
+		 });
+		
+		// function detail
+		function detail(bno){
+			//alert(bno + "번을 클릭했습니다.");
+			
+			$.ajax({
+                url:"./detail2",
+                type : "post",
+                data: {bno: bno},
+                dataType : "json",
+                success: function(data){
+                   	//alert(data.bno);
+		             $(".modal-title").text(data.title);
+		             let name = data.m_name + '<img class="edit" src="./img/edit.png"> <img class="del" src="./img/delete.png">';	
+		             name += '<input type="hidden" class="bno" value="'+ data.bno+'">';
+		             name += '<input type="hidden" class="uuid" value="'+data.uuid+'">';
+		             $(".detail-name").html(name);
+		             $(".detail-date").text(data.bdate);
+		             $(".detail-read").text(data.blike);
+		             $(".detail-ip").text(data.bip);
+		             $(".detail-content").html(data.bcontent);
+		             $("#exampleModal").modal("show");
+		        },
+		        error : function(error){alert("에러가 발생했습니다"+ error);}
+			});
+	}
+	
+		
 	</script>
 </head>
 <body id="page-top">
@@ -144,8 +172,8 @@
 					</tr>
 				</thead>
 				<tbody><c:forEach items="${list}" var="row">
-					<tr class="row detail">
-						<td class="col-1">${row.bno }</td>
+					<tr class="row" onclick="detail(${row.bno })">
+						<td class="col-1">${row.rowNum }</td>
 						<td class="col-4 title">${row.btitle }<c:if test="${row.commentcount ne 0 }">&nbsp;<span class="badge bg-secondary">${row.commentcount}</span></c:if></td>
 						<td class="col-1">${row.m_name }</td>
 						<td class="col-2">${row.bdate }</td>

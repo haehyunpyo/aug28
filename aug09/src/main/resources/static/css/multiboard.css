@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.div-table{
+	margin: 0 auto;
+	display: table;
+	width: 900px;
+	height: auto;
+}
+
+.div-row{
+	display: table-row;
+	height: 30px;
+	line-height: 30px;
+}
+
+.div-cell{
+	display: table-cell;
+	border-bottom: 1px solid gray;
+	text-align: center;
+}
+
+.table-head{
+	background-color: black;
+	color: orange; 
+	font-weight: bolder;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -34,4 +34,8 @@ public class AdminService {
 		return adminDAO.noticeHide(nno);
 	}
 
+	public List<Map<String, Object>> setupboardList() {
+		return adminDAO.setupboardList();
+	}
+
 }

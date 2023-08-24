@@ -51,9 +51,11 @@
 
 	<header class="masthead">
 		<div class="container">
-			<h1>멀티 보드</h1>
-
-
+			<c:forEach items="${boardlist }" var="l">
+				<button onclick="location.href='${l.b_url }'">${l.b_catename }</button>
+			</c:forEach>
+		
+			<h1>multiboard</h1>
 			<c:choose>
 				<c:when test="${ fn:length(list) gt 0}">
 					<table class="table table-dark table-hover table-striped">
@@ -69,8 +71,8 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${list }" var="list">
-								<tr class="row detail" onclick="location.href='./mbdetail?mbno=${list.mb_no}' ">
-									<td class="col-1">${list.mb_no}</td>
+								<tr class="row detail" onclick="location.href='./mbdetail?board=${param.board }&mbno=${list.mb_no}' ">
+									<td class="col-1">${list.rowNum}</td>
 									<td class="col-5 title">${list.mb_title}<c:if test="${row.commentcount ne 0 }">&nbsp;<span class="badge bg-secondary">${row.commentcount}</span></c:if></td>
 									<td class="col-2">${list.m_name}</td>
 									<td class="col-2">${list.mb_date}</td>

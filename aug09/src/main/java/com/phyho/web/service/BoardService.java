@@ -29,6 +29,10 @@ public class BoardService {
 		return boardDAO.detail(bno);
 	}
 
+	public BoardDTO detail2(int bno) {
+		return boardDAO.detail2(bno);
+	}
+	
 	public int write(BoardDTO dto) {
 		// 아이피
 		dto.setBip(util.getIp());
@@ -38,5 +42,7 @@ public class BoardService {
 		return boardDAO.write(dto);
 		
 	}
+
+
 	
 }

@@ -3,7 +3,6 @@ package com.phyho.web.controller;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,14 +18,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.phyho.web.service.AdminService;
@@ -208,6 +206,7 @@ public class AdminController {
 			return json.toString();
 		}
 		
+		// noticeHide
 		@ResponseBody
 		@PostMapping("/noticeHide")
 		public String noticeHide(@RequestParam("nno") int nno) {
@@ -221,6 +220,15 @@ public class AdminController {
 		
 		
 		
+		@RequestMapping(value="/multiBoard", method = RequestMethod.GET)
+		public String multiBoard(Model model) {
+			
+			List<Map<String, Object>> setupBoardList = adminService.setupboardList();
+			model.addAttribute("boardlist", setupBoardList);
+			return "admin/multiBoard";
+		}
+		
+
 	   
 }
 

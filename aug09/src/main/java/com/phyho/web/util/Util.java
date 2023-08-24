@@ -116,10 +116,10 @@ public class Util {
 	
 	
 	public void htmlMailSender(Map<String, Object> map) throws EmailException {
-	      String emailAddr = mail.emailAddr;// 보내는 사람
-	      String passwd = mail.passwd;// 메일의 암호를 넣어주세요.
+	      String emailAddr = "malrang248@outlook.kr";// 보내는 사람
+	      String passwd = "mal99rang!@";// 메일의 암호를 넣어주세요.
 	      String name = "스프링에서 보냄";// 보내는 사람 이름
-	      String hostname = mail.hostname;// smtp 주소
+	      String hostname = "smtp.office365.com";// smtp 주소
 	      int port = 587;// 포트가 뭔지 모르면 검색하셔야 합니다.
 	      // 메일보내기 작업하기
 	      //SimpleEmail mail = new SimpleEmail();
