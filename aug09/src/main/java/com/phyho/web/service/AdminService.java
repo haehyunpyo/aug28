@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.phyho.web.dao.AdminDAO;
 
@@ -36,6 +37,18 @@ public class AdminService {
 
 	public List<Map<String, Object>> setupboardList() {
 		return adminDAO.setupboardList();
+	}
+
+	public int multiBoardInsert(Map<String, Object> map) {
+		return adminDAO.multiBoardInsert(map);
+	}
+
+	public List<Map<String, Object>> memberList() {
+		return adminDAO.memberList();
+	}
+
+	public int gradeChange(Map<String, Object> map) {
+		return adminDAO.gradeChange(map);
 	}
 
 }

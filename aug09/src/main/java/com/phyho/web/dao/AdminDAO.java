@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.servlet.ModelAndView;
 
 @Mapper
 public interface AdminDAO {
@@ -20,6 +21,13 @@ public interface AdminDAO {
 
 	List<Map<String, Object>> setupboardList();
 
+	int multiBoardInsert(Map<String, Object> map);
+
+	List<Map<String, Object>> memberList();
+
+	int gradeChange(Map<String, Object> map);
+
 }
+
 
 
