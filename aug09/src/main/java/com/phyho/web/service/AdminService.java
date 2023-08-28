@@ -1,5 +1,6 @@
 package com.phyho.web.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -50,5 +51,18 @@ public class AdminService {
 	public int gradeChange(Map<String, Object> map) {
 		return adminDAO.gradeChange(map);
 	}
+
+	public List<Map<String, Object>> post(Map<String, Object> map) {
+		return adminDAO.post(map);
+	}
+
+	public List<Map<String, Object>> boardList() {
+		return adminDAO.boardList();
+	}
+
+	public Map<String, Object> postDetail(int mbno) {
+		return adminDAO.postDetail(mbno);
+	}
+
 
 }

@@ -3,7 +3,7 @@
       	<div class="space" style="height: 50px;"></div>
       	<div class="menu-item" onclick="url('main')"><i class="xi-home-o xi-2x"></i>홈</div>
          <div class="menu-item" onclick="url('multiBoard')"><i class="xi-layout-o xi-2x"></i>게시판 관리</div>
-         <div class="menu-item" onclick="url('post')"><i class="xi-document xi-2x"></i>게시글 관리</div>
+         <div class="menu-item" onclick="url('post?cate=0')"><i class="xi-document xi-2x"></i>게시글 관리</div>
          <div class="menu-item" onclick="url('member')"><i class="xi-users-o xi-2x"></i>회원 관리</div>
          <div class="menu-item" onclick="url('comment')"><i class="xi-comment-o xi-2x"></i>댓글 관리</div>
          <div class="menu-item" onclick="url('message')"><i class="xi-message-o xi-2x"></i>메시지 관리</div>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.EmailException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -179,7 +180,7 @@ public class AdminController {
 		@ResponseBody
 		@PostMapping("/noticeDetail")
 		public String noticeDetail(@RequestParam("nno") int nno) {
-			System.out.println(nno);
+			//System.out.println(nno);
 
 			// jackson사용해보기
 			ObjectNode json = JsonNodeFactory.instance.objectNode();
@@ -262,12 +263,42 @@ public class AdminController {
 			return "redirect:/admin/member";
 		}
 		
+		
+		@GetMapping("/post")
+		public String post(Model model, @RequestParam Map<String, Object> map) {
+			// 게시판 번호가 들어올 수 있습니다. 추후 처리
+			// 게시판 관리글을 불러옵니다.
+			
+			 if(!(map.containsKey("cate")) || map.get("cate").equals(null) || map.get("cate").equals("")) { 
+				 map.put("cate", 0); 
+				 }
+			 
+			//System.out.println("cate : " + cate);
+			//System.out.println("검색 : " + map);
+			//System.out.println(map.get("cate"));
+			
+			List<Map<String, Object>> boardList = adminService.boardList();
+			model.addAttribute("boardList", boardList);
+			
+			// 게시글을 다 불러옵니다.
+			List<Map<String, Object>> list = adminService.post(map);
+			model.addAttribute("list", list);
+			
+			return "/admin/post";
+		}
+		
+		@ResponseBody
+		@PostMapping("/postDetail")
+		public String postDetail(@RequestParam ("mbno") int mbno) {
+			//System.out.println(mbno);
+			
+			JSONObject json = new JSONObject();
+			Map<String, Object> postdetail = adminService.postDetail(mbno); 
+			json.put("postdetail", postdetail);
+			//System.out.println(postdetail);
+			
+			return json.toString();
+		}
+		
 }
-
-
-
-
-
-
-
 
