@@ -31,7 +31,7 @@ public interface AdminDAO {
 
 	List<Map<String, Object>> boardList();
 
-	Map<String, Object> postDetail(int mbno);
+	String postDetail(int mbno);
 
 }
 

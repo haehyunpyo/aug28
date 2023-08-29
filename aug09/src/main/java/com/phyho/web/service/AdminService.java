@@ -60,7 +60,7 @@ public class AdminService {
 		return adminDAO.boardList();
 	}
 
-	public Map<String, Object> postDetail(int mbno) {
+	public String postDetail(int mbno) {
 		return adminDAO.postDetail(mbno);
 	}
 

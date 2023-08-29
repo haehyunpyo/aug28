@@ -31,14 +31,14 @@
 					<div id="comment">회원을 관리합니다</div>
 				</div>
 				
-				<div class="box" style="background-color: MediumSlateBlue" onclick="url('comment')">
-					댓글 관리
-					<div id="comment">댓글을 관리합니다</div>
+				<div class="box" style="background-color: MediumSlateBlue" onclick="url('air')">
+					공기질관리
+					<div id="comment">공기질관리 현황</div>
 				</div>
 				
-				<div class="box" style="background-color: Silver" onclick="url('message')">
-					메시지 관리
-					<div id="comment">메시지를 관리합니다</div>
+				<div class="box" style="background-color: Silver" onclick="url('corona')">
+					코로나현황
+					<div id="comment">코로나 현황</div>
 				</div>
 				
 				<div class="box" style="background-color: PaleGreen" onclick="url('mail')">

@@ -178,7 +178,7 @@
 				</div>
 				<div class="mb-3 row">
 					<div class="col-sm-12">
-						<input type="button" id="login" class="btn btn-primary" value="login" > <!-- onclick="loginCheck()" -->
+						<input type="button" id="login" class="btn btn-primary" value="login" onclick="loginCheck()">
 						<input type="button" id="join" class="btn btn-info" value="가입하기">
 					</div>
 				</div>

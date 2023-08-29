@@ -84,8 +84,8 @@
 		ORDER BY mb_no DESC
 	</select>
 
-	<select id="postDetail" resultType="Map">
-		SELECT * FROM multiview WHERE mb_no=#{mbno}
+	<select id="postDetail" parameterType="Integer" resultType="String">
+		SELECT mb_content FROM multiview WHERE mb_no=#{mbno}
 	</select>
 
 
